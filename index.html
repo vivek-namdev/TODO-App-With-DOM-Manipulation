@@ -15,7 +15,7 @@
         const value = inputEl.value;
 
         const newDivEl = document.createElement("div");
-        newDivEl.innerHTML = value;
+        newDivEl.innerHTML = "<div>" + value + '</div> <button onClick="deleteTodo()">delete</button>';
 
         document.querySelector("body").appendChild(newDivEl);
     }
