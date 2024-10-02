@@ -3,21 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TODO With DOM Manipulation</title>
+    <title>TODO With Crud</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <input type="text">
-    <button onclick="addTodo()">Add todo!</button>
+    <div class="container">
+        <div class="myApp">
+            <form action="" class="formSubmitter">
+                <div class="actions">
+                    <input type="text" class="messageAdder" placeholder="Add your task">
+                    <button type="submit" class="addmessageButton">Add Task</button>
+                </div>
+            </form>
+
+            <!-- our data which will be show with action button -->
+
+            <table class="mytable">
+                <!-- <tr>
+                    <td>
+                        <div class="checker">
+                            <span><input type="checkbox" class="checkbox"></span>My First Task
+                        </div>
+
+                        <div class="actionButtons">
+                            <button class="editBtn">Edit</button>
+                            <button class="deleteBtn">Delete</button>
+                        </div>
+                    </td>
+                </tr> -->
+            </table>
+        </div>
+    </div>
 </body>
-<script>
-    function addTodo() {
-        const inputEl = document.querySelector("input");
-        const value = inputEl.value;
-
-        const newDivEl = document.createElement("div");
-        newDivEl.innerHTML = "<div>" + value + '</div> <button onClick="deleteTodo()">delete</button>';
-
-        document.querySelector("body").appendChild(newDivEl);
-    }
-</script>
+<script src="index.js"></script>
 </html>
