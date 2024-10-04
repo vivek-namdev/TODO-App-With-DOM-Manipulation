@@ -1,37 +1,61 @@
-let todoes = JSON.parse(localStorage.getItem("message")) || [];
+const inputBox = document.getElementById('inputBox');
+const addBtn = document.getElementById('addBtn');
+const todoList = document.getElementById('todoList');
 
-function allData() {
-    localStorage.setItem("message", JSON.stringify(todoes));
+let editTodo = null;
 
-    let element=""
-    todoes.map(item=> (
-        element+=`
-        <tr>
-                    <td>
-                        <div class="checker">
-                            <span><input type="checkbox" class="checkbox"></span>${item.message}
-                        </div>
+// Function to add to do
+const addTodo = () => {
+    const inputText = inputBox.value.trim();
+    if(inputText.length <= 0) {
+        alert("You must write something in your todo");
+        return false;
+    }
 
-                        <div class="actionButtons">
-                            <button class="editBtn">Edit</button>
-                            <button class="deleteBtn">Delete</button>
-                        </div>
-                    </td>
-                </tr>
+    if(addBtn.value === "Edit") {
+        editTodo.target.previousElementSibling.innerHTML = inputText;
+        addBtn.value = "Add";
+        inputBox.value = "";
+    }
 
-        `
-    ))
+    else {
 
-    const table = document.querySelector(".mytable")
-    table.innerHTML=element
+    // Creating p tag
+    const li = document.createElement("li");
+    const p = document.createElement("p");
+    p.innerHTML = inputText;
+    li.appendChild(p);
+
+    // Creating edit Btn
+    const editBtn = document.createElement("button");
+    editBtn.innerText = "Edit";
+    editBtn.classList.add("btn", "editBtn");
+    li.appendChild(editBtn);
+
+    // Creating delete btn
+    const deleteBtn = document.createElement("button");
+    deleteBtn.innerText = "Remove";
+    deleteBtn.classList.add("btn", "deleteBtn");
+    li.appendChild(deleteBtn);
+
+    todoList.appendChild(li);
+    inputBox.value = "";
+    }
 }
 
-document.querySelector(".formSubmitter").addEventListener('submit', function handleSubmit(e) {
-    e.preventDefault();
+// Function to update : (Edit/Delete) to do
+const updateTodo = (e) => {
+    if(e.target.innerHTML === "Remove") {
+        todoList.removeChild(e.target.parentElement);
+    }
 
-    const messageAdderInput = document.querySelector(".messageAdder").value;
-    const newObj = {id:todoes.length+1, message: messageAdderInput, check: false}
-    todoes.push(newObj)
+    if(e.target.innerHTML === "Edit") {
+        inputBox.value = e.target.previousElementSibling.innerHTML;
+        inputBox.focus();
+        addBtn.value = "Edit";
+        editTodo = e;
+    }
+}
 
-    allData();
-})
+addBtn.addEventListener('click', addTodo);
+todoList.addEventListener('click', updateTodo);
